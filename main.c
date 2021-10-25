@@ -16,29 +16,30 @@
         [number_of_times_each_philosopher_must_eat]
 */
 
-void parse_args(int argc,char **argv, t_philo **philo)
+void parse_args(int argc,char **argv, t_args *args)
 {
-    (*philo)->n_philo = argv[0];
-    (*philo)->die_time = argv[0];
-    (*philo)->eat_time = argv[0];
-    (*philo)->sleep_time = argv[0];
-    if (argc == 5)
-        (*philo)->n_eat_time = argv[0];
+    args->n_philo = argv[1];
+    args->die_time = argv[2];
+    args->eat_time = argv[3];
+    args->sleep_time = argv[4];
+    if (argc == 6)
+        args->n_eat_time = argv[5];
     else
-        (*philo)->n_eat_time = -1;
+        args->n_eat_time = -1;
 }
 
 int main(int argc, char **argv)
 {
     t_philo *philo;
+    t_args args;
 
-    if (argc < 4 || argc > 5)
+    if (argc < 5 || argc > 6)
     {
         printf("Wrong usage.");
         return (0);
     }
-    philo = (t_philo*)malloc(sizeof(t_philo));
-    parse_args(argc, argv, &philo);
+    parse_args(argc, argv, &args);
+    philo = (t_philo*)malloc(sizeof(t_philo) * args.n_philo);
     
     return (0);
 }
