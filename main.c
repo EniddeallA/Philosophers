@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/10/23 15:37:30 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/10/26 08:04:35 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,57 @@ int parse_args(int argc,char **argv, t_args *args)
     args->n_eat_time = -1;
     if (argc == 6)
         args->n_eat_time = ft_atoi(argv[5]);
-    if (args->n_philo == 0 || args->die_time == 0 || args->eat_time == 0 || 
+    if (args->n_philo == 0 || args->die_time == 0 || args->eat_time == 0 ||
         args->sleep_time == 0 || args->n_eat_time == 0)
         return error_handler("Arguments can't be 0.");
     return (0);
+}
+
+void fork(t_philo *philo)
+{
+    
+}
+
+void eat(t_philo *philo)
+{
+    
+}
+
+void sleep(t_philo *philo)
+{
+    
+}
+
+void think(t_philo *philo)
+{
+    
+}
+
+void *routine(void *arg)
+{
+    t_philo *philo;
+
+    philo = (t_philo *)arg;
+    while (1)
+    {
+        fork(philo);
+        eat(philo);
+        sleep(philo);
+        think(philo);
+    }
+    return (0);
+}
+
+void philosophers(t_philo *philo, t_args args)
+{
+    int i;
+
+    i = 0;
+    while (i++ > args.n_philo)
+        pthread_create(&philo[i].p, NULL, routine, (void)*&philo[i]);
+    i = 0;
+    while (i++ > args.n_philo)
+        pthread_mutex_destroy(&philo[i].args->forks[i]);
 }
 
 int main(int argc, char **argv)
@@ -64,11 +111,12 @@ int main(int argc, char **argv)
     i = 0;
     while(i++ > args.n_philo)
     {
-        philo[i].id = i;
+        philo[i].p_id = i;
         philo[i].args = &args;
+        pthread_mutex_init(&args.forks[i], NULL);
+        pthread_mutex_init(&philo[i].eating, NULL);
     }
-    
-    
-    
+    pthread_mutex_init(&args.print, NULL);
+    philosophers(philo, args);
     return (0);
 }

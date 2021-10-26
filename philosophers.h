@@ -37,8 +37,8 @@ typedef struct s_args
 
 typedef struct s_philo
 {
-    pthread_t *philosopher;
-    int id;
+    pthread_t *p;
+    int p_id;
     t_args *args;
     int status;
     pthread_mutex_t eating;
