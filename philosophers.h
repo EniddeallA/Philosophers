@@ -18,10 +18,11 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-// EATING 1
-// THINKING 2
-// SLEEPING 3
-// DEAD 4
+
+# define EATING 1
+# define THINKING 2
+# define SLEEPING 3
+# define DEAD 4
 
 typedef struct s_args
 {
@@ -30,16 +31,21 @@ typedef struct s_args
     int eat_time;
     int sleep_time;
     int n_eat_time;
-    
+    pthread_mutex_t *forks;
+    pthread_mutex_t print;
 }   t_args;
 
 typedef struct s_philo
 {
-    t_args args;
-
+    pthread_t *philosopher;
+    int id;
+    t_args *args;
+    int status;
+    pthread_mutex_t eating;
 }   t_philo;
 
-void parse_args(int argc,char **argv, t_args *args);
+int parse_args(int argc,char **argv, t_args *args);
+int error_handler(char *str);
 
 
 #endif

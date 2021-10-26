@@ -16,30 +16,59 @@
         [number_of_times_each_philosopher_must_eat]
 */
 
-void parse_args(int argc,char **argv, t_args *args)
+int error_handler(char *str)
 {
-    args->n_philo = argv[1];
-    args->die_time = argv[2];
-    args->eat_time = argv[3];
-    args->sleep_time = argv[4];
+    printf("%s", str);
+    return (-1);
+}
+
+int ft_atoi(char *str)
+{
+    int res;
+    
+    res = 0;
+    while(*str)
+    {
+        if (*str < '0' || *str > '9')
+            return error_handler("Arguments contain bad character.");
+        res += res * 10 + *str++;
+    }
+    return (res);
+}
+
+int parse_args(int argc,char **argv, t_args *args)
+{
+    args->n_philo = ft_atoi(argv[1]);
+    args->die_time = ft_atoi(argv[2]);
+    args->eat_time = ft_atoi(argv[3]);
+    args->sleep_time = ft_atoi(argv[4]);
+    args->n_eat_time = -1;
     if (argc == 6)
-        args->n_eat_time = argv[5];
-    else
-        args->n_eat_time = -1;
+        args->n_eat_time = ft_atoi(argv[5]);
+    if (args->n_philo == 0 || args->die_time == 0 || args->eat_time == 0 || 
+        args->sleep_time == 0 || args->n_eat_time == 0)
+        return error_handler("Arguments can't be 0.");
+    return (0);
 }
 
 int main(int argc, char **argv)
 {
     t_philo *philo;
     t_args args;
-
-    if (argc < 5 || argc > 6)
+    int i;
+    
+    if (argc < 5 || argc > 6 || parse_args(argc, argv, &args))
+        return error_handler("Wrong usage.");
+    philo = malloc(sizeof(t_philo) * args.n_philo);
+    args.forks = malloc(sizeof(pthread_mutex_t) * args.n_philo);
+    i = 0;
+    while(i++ > args.n_philo)
     {
-        printf("Wrong usage.");
-        return (0);
+        philo[i].id = i;
+        philo[i].args = &args;
     }
-    parse_args(argc, argv, &args);
-    philo = (t_philo*)malloc(sizeof(t_philo) * args.n_philo);
+    
+    
     
     return (0);
 }
