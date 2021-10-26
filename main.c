@@ -6,70 +6,11 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/10/26 08:04:35 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/10/26 08:08:22 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philosophers.h"
-/*
-./a.out number_of_philosophers -- time_to_die -- time_to_eat -- time_to_sleep --
-        [number_of_times_each_philosopher_must_eat]
-*/
-
-int error_handler(char *str)
-{
-    printf("%s", str);
-    return (-1);
-}
-
-int ft_atoi(char *str)
-{
-    int res;
-    
-    res = 0;
-    while(*str)
-    {
-        if (*str < '0' || *str > '9')
-            return error_handler("Arguments contain bad character.");
-        res += res * 10 + *str++;
-    }
-    return (res);
-}
-
-int parse_args(int argc,char **argv, t_args *args)
-{
-    args->n_philo = ft_atoi(argv[1]);
-    args->die_time = ft_atoi(argv[2]);
-    args->eat_time = ft_atoi(argv[3]);
-    args->sleep_time = ft_atoi(argv[4]);
-    args->n_eat_time = -1;
-    if (argc == 6)
-        args->n_eat_time = ft_atoi(argv[5]);
-    if (args->n_philo == 0 || args->die_time == 0 || args->eat_time == 0 ||
-        args->sleep_time == 0 || args->n_eat_time == 0)
-        return error_handler("Arguments can't be 0.");
-    return (0);
-}
-
-void fork(t_philo *philo)
-{
-    
-}
-
-void eat(t_philo *philo)
-{
-    
-}
-
-void sleep(t_philo *philo)
-{
-    
-}
-
-void think(t_philo *philo)
-{
-    
-}
 
 void *routine(void *arg)
 {
@@ -98,6 +39,21 @@ void philosophers(t_philo *philo, t_args args)
         pthread_mutex_destroy(&philo[i].args->forks[i]);
 }
 
+int parse_args(int argc,char **argv, t_args *args)
+{
+    args->n_philo = ft_atoi(argv[1]);
+    args->die_time = ft_atoi(argv[2]);
+    args->eat_time = ft_atoi(argv[3]);
+    args->sleep_time = ft_atoi(argv[4]);
+    args->n_eat_time = -1;
+    if (argc == 6)
+        args->n_eat_time = ft_atoi(argv[5]);
+    if (args->n_philo == 0 || args->die_time == 0 || args->eat_time == 0 ||
+        args->sleep_time == 0 || args->n_eat_time == 0)
+        return error_handler("Arguments can't be 0.");
+    return (0);
+}
+
 int main(int argc, char **argv)
 {
     t_philo *philo;
@@ -120,3 +76,9 @@ int main(int argc, char **argv)
     philosophers(philo, args);
     return (0);
 }
+
+/*
+./a.out 
+    -- number_of_philosophers -- time_to_die -- time_to_eat -- time_to_sleep 
+    -- [number_of_times_each_philosopher_must_eat]
+*/
