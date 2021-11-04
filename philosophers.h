@@ -13,11 +13,12 @@
 #ifndef PHILOSOPHERS_H
 # define PHILOSOPHERS_H
 
-# include <stdio.h>
-# include <pthread.h>
-# include <stdlib.h>
 # include <unistd.h>
-
+# include <stdio.h>
+# include <stdlib.h>
+# include <sys/time.h>
+# include <pthread.h>
+# include <stdint.h>
 
 # define EATING 1
 # define THINKING 2
@@ -27,12 +28,13 @@
 typedef struct s_args
 {
     int n_philo;
-    int die_time;
-    int eat_time;
-    int sleep_time;
+    uint64_t die_time;
+    uint64_t eat_time;
+    uint64_t sleep_time;
     int n_eat_time;
     pthread_mutex_t *forks;
     pthread_mutex_t print;
+    uint64_t time;
 }   t_args;
 
 typedef struct s_philo
@@ -42,17 +44,21 @@ typedef struct s_philo
     t_args *args;
     int status;
     pthread_mutex_t eating;
+    int	total_eat;
+	int	last_eat;
 }   t_philo;
 
-int parse_args(int argc,char **argv, t_args *args);
-int error_handler(char *str);
-int ft_atoi(char *str);
-void *routine(void *arg);
-void philosophers(t_philo *philo, t_args args);
-void fork(t_philo *philo);
-void eat(t_philo *philo);
-void sleep(t_philo *philo);
-void think(t_philo *philo);
+int         parse_args(int argc,char **argv, t_args *args);
+int         error_handler(char *str);
+int         ft_atoi(char *str);
+void        *routine(void *arg);
+void        philosophers(t_philo *philo, t_args args);
+void        fork(t_philo *philo);
+void        eat(t_philo *philo);
+void        sleep(t_philo *philo);
+void        think(t_philo *philo);
+void        my_usleep(uint64_t time);
+uint64_t    get_timestamp(void);
 
 
 #endif
