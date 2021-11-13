@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/10/26 09:16:50 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/13 00:57:53 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@ void *routine(void *arg)
     philo = (t_philo *)arg;
     while (1)
     {
-        fork(philo);
-        eat(philo);
-        sleep(philo);
-        think(philo);
+        // get forks
+        // eat
+        // sleep
+        // think
+        
     }
     return (0);
 }

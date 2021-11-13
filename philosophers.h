@@ -53,12 +53,7 @@ int         error_handler(char *str);
 int         ft_atoi(char *str);
 void        *routine(void *arg);
 void        philosophers(t_philo *philo, t_args args);
-void        fork(t_philo *philo);
-void        eat(t_philo *philo);
-void        sleep(t_philo *philo);
-void        think(t_philo *philo);
-void        my_usleep(uint64_t time);
-uint64_t    get_timestamp(void);
+
 
 
 #endif
