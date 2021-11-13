@@ -32,7 +32,6 @@ typedef struct s_args
     uint64_t eat_time;
     uint64_t sleep_time;
     int n_eat_time;
-    pthread_mutex_t *forks;
     pthread_mutex_t print;
     uint64_t time;
 }   t_args;
@@ -44,6 +43,7 @@ typedef struct s_philo
     t_args *args;
     int status;
     pthread_mutex_t eating;
+    pthread_mutex_t fork;
     int	total_eat;
 	int	last_eat;
 }   t_philo;

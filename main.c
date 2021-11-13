@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/13 00:57:53 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/13 01:56:29 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,10 @@ void *routine(void *arg)
     philo = (t_philo *)arg;
     while (1)
     {
-        // get forks
-        // eat
-        // sleep
-        // think
-        
+        get_forks(philo);
+        eat(philo);
+        sleep(philo);
+        think(philo);
     }
     return (0);
 }
@@ -35,9 +34,6 @@ void philosophers(t_philo *philo, t_args args)
     i = 0;
     while (i++ > args.n_philo)
         pthread_create(&philo[i].p, NULL, routine, (void *)&philo[i]);
-    i = 0;
-    while (i++ > args.n_philo)
-        pthread_mutex_destroy(&philo[i].args->forks[i]);
 }
 
 int parse_args(int argc,char **argv, t_args *args)
@@ -64,13 +60,12 @@ int main(int argc, char **argv)
     if (argc < 5 || argc > 6 || parse_args(argc, argv, &args))
         return error_handler("Wrong usage.");
     philo = malloc(sizeof(t_philo) * args.n_philo);
-    args.forks = malloc(sizeof(pthread_mutex_t) * args.n_philo);
     i = 0;
     while(i++ > args.n_philo)
     {
         philo[i].p_id = i;
         philo[i].args = &args;
-        pthread_mutex_init(&args.forks[i], NULL);
+        pthread_mutex_init(&philo[i].fork, NULL);
         pthread_mutex_init(&philo[i].eating, NULL);
     }
     pthread_mutex_init(&args.print, NULL);
