@@ -32,15 +32,28 @@ typedef struct s_args
     uint64_t eat_time;
     uint64_t sleep_time;
     int n_eat_time;
+    pthread_mutex_t print;
+    pthread_mutex_t *fork;
 }   t_args;
 
 typedef struct s_philo
 {
-    
+    int id;
+    int status;
+    pthread_t philo; 
+    pthread_mutex_t eat;
+    t_args *args;
 }   t_philo;
 
 int         parse_args(int argc,char **argv, t_args *args);
 int         error_handler(char *str);
 int         ft_atoi(char *str);
+void        philosophers(t_philo *philo, t_args args);
+void        *routine(void *arg);
+void        get_forks(t_philo *philo);
+void        eat(t_philo *philo);
+void        sleep(t_philo *philo);
+void        think(t_philo *philo);
+
 
 #endif
