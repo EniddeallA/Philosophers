@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:03:00 by  by akhalid       #+#    #+#             */
-/*   Updated: 2021/11/14 08:55:30 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/15 00:30:39 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ typedef struct s_args
 	long			eat_time;
 	long			sleep_time;
 	int				n_eat_time;
+	long			start_time;
 	pthread_mutex_t	print;
 	pthread_mutex_t	*fork;
 }				t_args;

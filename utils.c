@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 08:05:09 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/14 08:37:03 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/15 00:33:53 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ int	ft_atoi(char *str)
 
 int	parse_args(int argc, char **argv, t_args *args)
 {
+	struct timeval tp;
+
 	args->n_philo = ft_atoi(argv[1]);
 	args->death_time = ft_atoi(argv[2]);
 	args->eat_time = ft_atoi(argv[3]);
@@ -44,5 +46,7 @@ int	parse_args(int argc, char **argv, t_args *args)
 	if (args->n_philo == 0 || args->death_time == 0 || args->eat_time == 0
 		|| args->sleep_time == 0 || args->n_eat_time == 0)
 		return (error_handler("Arguments can't be 0."));
+	gettimeofday(&tp, NULL);
+	args->start_time = tp.tv_sec * 1000 + tp.tv_usec / 1000;
 	return (0);
 }

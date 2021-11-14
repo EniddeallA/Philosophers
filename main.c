@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/14 09:01:46 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/15 00:35:05 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	philosophers(t_philo *philo, t_args args)
 	i = 0;
 	while (i < args.n_philo)
 	{
-		pthread_create(&philo[i].philo, NULL, routine, (void *)&philo[i]);
+		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
 		i++;
 	}
 	i = 0;
@@ -53,9 +53,9 @@ int	main(int argc, char **argv)
 
 	if (argc < 5 || argc > 6 || parse_args(argc, argv, &args))
 		return (error_handler("Wrong usage."));
-	philo = (t_philo *)malloc(sizeof(t_philo) * args.n_philo);
 	args.fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
 			 * args.n_philo);
+	philo = (t_philo *)malloc(sizeof(t_philo) * args.n_philo);
 	i = 0;
 	while (i < args.n_philo)
 	{
