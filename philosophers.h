@@ -28,32 +28,19 @@
 typedef struct s_args
 {
     int n_philo;
-    uint64_t die_time;
+    uint64_t death_time;
     uint64_t eat_time;
     uint64_t sleep_time;
     int n_eat_time;
-    pthread_mutex_t print;
-    uint64_t time;
 }   t_args;
 
 typedef struct s_philo
 {
-    pthread_t *p;
-    int p_id;
-    t_args *args;
-    int status;
-    pthread_mutex_t eating;
-    pthread_mutex_t fork;
-    int	total_eat;
-	int	last_eat;
+    
 }   t_philo;
 
 int         parse_args(int argc,char **argv, t_args *args);
 int         error_handler(char *str);
 int         ft_atoi(char *str);
-void        *routine(void *arg);
-void        philosophers(t_philo *philo, t_args args);
-
-
 
 #endif

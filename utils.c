@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/26 08:05:09 by akhalid           #+#    #+#             */
-/*   Updated: 2021/10/26 08:06:56 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/13 02:10:52 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int ft_atoi(char *str)
     {
         if (*str < '0' || *str > '9')
             return error_handler("Arguments contain bad character.");
-        res += res * 10 + *str++;
+        res += res * 10 + (*str++ - '0');
     }
     return (res);
 }
