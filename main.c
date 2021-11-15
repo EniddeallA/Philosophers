@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/15 00:35:05 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/16 00:11:02 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,22 +27,30 @@ void	*routine(void *arg)
 	return (0);
 }
 
+void	*supervisor(void *arg)
+{
+	t_philo *philo;`
+
+	philo = (t_philo *)arg;
+	
+}
+
 void	philosophers(t_philo *philo, t_args args)
 {
 	int	i;
+	pthread_t supervisor;
 
-	i = 0;
-	while (i < args.n_philo)
-	{
+	i = -1;
+	while (++i < args.n_philo)
 		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
-		i++;
-	}
-	i = 0;
-	while (i < args.n_philo)
-	{
-		pthread_join(philo[i].philo, NULL);
-		i++;
-	}
+	pthread_create(&supervisor, NULL, supervisor, (void *)philo);
+	pthread_join(supervisor, NULL);
+	// i = 0;
+	// while (i < args.n_philo)
+	// {
+	// 	pthread_join(philo[i].philo, NULL);
+	// 	i++;
+	// }
 }
 
 int	main(int argc, char **argv)
