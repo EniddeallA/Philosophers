@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 06:40:55 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/16 00:11:15 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/16 01:03:41 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	getting_forks(t_philo *philo)
 	printf("%ld %d has taken a fork\n", get_time_ms(philo->args->start_time),
 		philo->id);
 	pthread_mutex_unlock(&philo->args->print);
-	usleep(100);
+	usleep(1000);
 }
 
 void	eating(t_philo *philo)
@@ -38,9 +38,9 @@ void	eating(t_philo *philo)
 		philo->id);
 	pthread_mutex_unlock(&philo->args->print);
 	pthread_mutex_unlock(&philo->args->fork[pos]);
-	pthread_mutex_unlock(&philo->args->fork[(pos + 1) % phil	o->args->n_philo]);
+	pthread_mutex_unlock(&philo->args->fork[(pos + 1) % philo->args->n_philo]);
 	pthread_mutex_unlock(&philo->eat);
-	usleep(100);
+	usleep(1000);
 }
 
 void	sleeping(t_philo *philo)
@@ -50,7 +50,7 @@ void	sleeping(t_philo *philo)
 	printf("%ld %d is sleeping\n", get_time_ms(philo->args->start_time),
 		philo->id);
 	pthread_mutex_unlock(&philo->args->print);
-	usleep(100);
+	usleep(1000);
 }
 
 void	thinking(t_philo *philo)
@@ -60,5 +60,5 @@ void	thinking(t_philo *philo)
 	printf("%ld %d is thinking\n", get_time_ms(philo->args->start_time),
 		philo->id);
 	pthread_mutex_unlock(&philo->args->print);
-	usleep(100);
+	usleep(1000);
 }

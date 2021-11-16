@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:03:00 by  by akhalid       #+#    #+#             */
-/*   Updated: 2021/11/15 00:30:39 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/16 00:56:03 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@
 typedef struct s_args
 {
 	int				n_philo;
-	long			death_time;
-	long			eat_time;
-	long			sleep_time;
+	int				death_time;
+	int				eat_time;
+	int				sleep_time;
 	int				n_eat_time;
 	long			start_time;
 	pthread_mutex_t	print;
@@ -41,6 +41,7 @@ typedef struct s_philo
 {
 	int				id;
 	int				status;
+	int				last_eat;
 	pthread_t		philo;
 	pthread_mutex_t	eat;
 	t_args			*args;
@@ -55,5 +56,7 @@ void		getting_forks(t_philo *philo);
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
+long		get_time_ms(long time);
+void		*supervisor(void *arg);
 
 #endif
