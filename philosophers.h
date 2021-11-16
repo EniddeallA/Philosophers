@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:03:00 by  by akhalid       #+#    #+#             */
-/*   Updated: 2021/11/16 01:35:47 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/16 02:10:01 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ typedef struct s_philo
 	int				id;
 	int				status;
 	int				last_eat;
+	int				total_eat;
 	pthread_t		philo;
 	pthread_mutex_t	eat;
 	t_args			*args;
@@ -60,5 +61,6 @@ void		thinking(t_philo *philo);
 long		get_time_ms(long time);
 void		*supervisor(void *arg);
 void 		my_usleep(int time);
+int			must_eat(t_philo *philo);
 
 #endif

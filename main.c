@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/16 01:48:19 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/16 02:09:47 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,41 @@ void	*routine(void *arg)
 	return (0);
 }
 
+int	must_eat(t_philo *philo)
+{
+	int	i;
+	int	done;
+
+	if (philo->args->n_eat_time != -1)
+	{
+		done = 1;
+		i = -1;
+		while (++i < philo->args->n_philo)
+			if (philo[i].total_eat < philo->args->n_eat_time)
+				done = 0;
+		if (done)
+		{
+			pthread_mutex_lock(&philo->args->print);
+			printf ("All philosophers have eaten at least");
+			printf (" %d times each\n", philo->args->n_eat_time);
+			pthread_mutex_unlock(&philo->args->print);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 void	*supervisor(void *arg)
 {
 	t_philo *philo;
 	int i;
 	long time;
 
-	i = 0;
 	philo = (t_philo *)arg;
 	while (1)
 	{
-		i = 0;
-		while (i < philo->args->n_philo)
+		i = -1;
+		while (++i < philo->args->n_philo)
 		{
 			time = get_time_ms(0) - philo->args->start_time;
 			if ((time - philo[i].last_eat) >= philo->args->death_time
@@ -48,9 +71,12 @@ void	*supervisor(void *arg)
 				pthread_mutex_lock(&philo[i].eat);
 				printf("%ld %d died\n", get_time_ms(philo->args->start_time),
 					philo->id);
+				pthread_mutex_unlock(&philo->args->print);
 				return (0);
 			}
 		}
+		if (must_eat(philo))
+			return (NULL);
 	}
 	return (0);
 }
