@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:03:00 by  by akhalid       #+#    #+#             */
-/*   Updated: 2021/11/16 02:10:01 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/18 11:44:39 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,6 @@
 # include <stdint.h>
 
 # define EATING 1
-# define THINKING 2
-# define SLEEPING 3
-# define DEAD 4
 
 typedef struct s_args
 {
@@ -36,6 +33,7 @@ typedef struct s_args
 	pthread_mutex_t	print;
 	pthread_mutex_t	*fork;
 	pthread_mutex_t	forks;
+	pthread_mutex_t dead;
 }				t_args;
 
 typedef struct s_philo
