@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 00:05:13 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/18 07:17:42 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/19 14:12:25 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,9 @@ long	get_time_ms(long time)
 void 		my_usleep(int time)
 {
 	long	current_time;
-	int		s_sleep_time;
-	int		b_sleep_time;
 
-	s_sleep_time = time * 30 / 100;
-	b_sleep_time = (time * 70/100) * 1000;
-	usleep(b_sleep_time);
 	current_time = get_time_ms(0);
-	while (get_time_ms(0) - current_time < s_sleep_time)
+	usleep((time * 1e3) - 10000);
+	while (get_time_ms(0) - current_time < time)
 		continue;
 }
