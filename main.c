@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/19 14:12:31 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/19 14:37:28 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	must_eat(t_philo *philo)
 	int	i;
 	int	done;
 
-	if (philo->args->n_eat_time != -1)
+	if	(philo->args->n_eat_time != -1)
 	{
 		done = 1;
 		i = -1;
@@ -53,9 +53,9 @@ int	must_eat(t_philo *philo)
 
 void	*supervisor(void *arg)
 {
-	t_philo *philo;
-	int i;
-	long time;
+	t_philo	*philo;
+	int		i;
+	long	time;
 
 	philo = (t_philo *)arg;
 	while (1)
@@ -74,7 +74,6 @@ void	*supervisor(void *arg)
 			}
 			pthread_mutex_unlock(&philo[i].eat);
 		}
-
 		if (must_eat(philo))
 			return (NULL);
 	}
@@ -83,10 +82,11 @@ void	*supervisor(void *arg)
 
 void	philosophers(t_philo *philo, t_args args)
 {
-	int	i;
-	pthread_t sudo;
+	int			i;
+	pthread_t	sudo;
 
 	i = -1;
+	philo->args->start_time = get_time_ms(0);
 	while (++i < args.n_philo)
 	{
 		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
@@ -105,7 +105,7 @@ int	main(int argc, char **argv)
 	if (argc < 5 || argc > 6 || parse_args(argc, argv, &args))
 		return (error_handler("Wrong usage."));
 	args.fork = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t)
-			 * args.n_philo);
+			* args.n_philo);
 	philo = (t_philo *)malloc(sizeof(t_philo) * args.n_philo);
 	i = 0;
 	while (i < args.n_philo)

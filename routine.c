@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/14 06:40:55 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/18 09:38:52 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/19 14:36:19 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	eating(t_philo *philo)
 	pthread_mutex_unlock(&philo->args->print);
 	philo->last_eat = get_time_ms(philo->args->start_time);
 	philo->total_eat += 1;
-	usleep(philo->args->eat_time * 1000);
+	my_usleep(philo->args->eat_time);
 	pthread_mutex_unlock(&philo->args->fork[pos]);
 	pthread_mutex_unlock(&philo->args->fork[(pos + 1) % philo->args->n_philo]);
 	pthread_mutex_unlock(&philo->eat);
