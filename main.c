@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/19 14:37:28 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/19 17:36:17 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	must_eat(t_philo *philo)
 	int	i;
 	int	done;
 
-	if	(philo->args->n_eat_time != -1)
+	if (philo->args->n_eat_time != -1)
 	{
 		done = 1;
 		i = -1;
@@ -64,7 +64,7 @@ void	*supervisor(void *arg)
 		while (++i < philo->args->n_philo)
 		{
 			pthread_mutex_lock(&philo[i].eat);
-			time = get_time_ms(0) - philo->args->start_time;
+			time = get_time_ms(philo->args->start_time);
 			if ((time - philo[i].last_eat) >= philo->args->death_time)
 			{
 				pthread_mutex_lock(&philo->args->print);
@@ -85,12 +85,19 @@ void	philosophers(t_philo *philo, t_args args)
 	int			i;
 	pthread_t	sudo;
 
-	i = -1;
+	i = 0;
 	philo->args->start_time = get_time_ms(0);
-	while (++i < args.n_philo)
+	while (i < args.n_philo)
 	{
 		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
-		usleep(50);
+		 i += 2;
+	}
+	usleep(1e1);
+	i = 1;
+	while (i < args.n_philo)
+	{
+		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
+		 i += 2;
 	}
 	pthread_create(&sudo, NULL, supervisor, (void *)philo);
 	pthread_join(sudo, NULL);
