@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:03:00 by  by akhalid       #+#    #+#             */
-/*   Updated: 2021/11/19 18:58:34 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/22 18:25:53 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 # include <sys/time.h>
 # include <pthread.h>
 # include <stdint.h>
-
-# define EATING 1
 
 typedef struct s_args
 {
@@ -38,7 +36,6 @@ typedef struct s_args
 typedef struct s_philo
 {
 	int				id;
-	int				status;
 	int				last_eat;
 	int				total_eat;
 	pthread_t		philo;

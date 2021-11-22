@@ -6,7 +6,7 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/19 17:36:17 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/22 18:44:43 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	philosophers(t_philo *philo, t_args args)
 		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
 		 i += 2;
 	}
-	usleep(1e1);
+	usleep(50);
 	i = 1;
 	while (i < args.n_philo)
 	{
@@ -125,7 +125,7 @@ int	main(int argc, char **argv)
 		i++;
 	}
 	pthread_mutex_init(&args.print, NULL);
-	pthread_mutex_init(&args.forks, NULL);
+	// pthread_mutex_init(&args.forks, NULL);
 	philosophers(philo, args);
 	return (0);
 }
