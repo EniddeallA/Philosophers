@@ -6,11 +6,11 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:30:27 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/22 18:44:43 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/23 16:10:21 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "./philosophers.h"
 
 void	*routine(void *arg)
 {
@@ -63,19 +63,18 @@ void	*supervisor(void *arg)
 		i = -1;
 		while (++i < philo->args->n_philo)
 		{
-			pthread_mutex_lock(&philo[i].eat);
-			time = get_time_ms(philo->args->start_time);
-			if ((time - philo[i].last_eat) >= philo->args->death_time)
+			if (!philo[i].status)
 			{
-				pthread_mutex_lock(&philo->args->print);
-				printf("%ld %d died\n", get_time_ms(philo->args->start_time),
-					philo->id);
-				return (0);
+				pthread_mutex_lock(&philo[i].eat);
+				time = get_time_ms(philo->args->start_time);
+				if ((time - philo[i].last_eat) >= philo->args->death_time)
+					return (dead(time, philo[i].id, philo));
+				pthread_mutex_unlock(&philo[i].eat);
 			}
-			pthread_mutex_unlock(&philo[i].eat);
 		}
 		if (must_eat(philo))
 			return (NULL);
+		usleep(1e3);
 	}
 	return (0);
 }
@@ -90,14 +89,14 @@ void	philosophers(t_philo *philo, t_args args)
 	while (i < args.n_philo)
 	{
 		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
-		 i += 2;
+		i += 2;
 	}
 	usleep(50);
 	i = 1;
 	while (i < args.n_philo)
 	{
 		pthread_create((&philo[i].philo), NULL, routine, (void *)&philo[i]);
-		 i += 2;
+		i += 2;
 	}
 	pthread_create(&sudo, NULL, supervisor, (void *)philo);
 	pthread_join(sudo, NULL);
@@ -119,13 +118,13 @@ int	main(int argc, char **argv)
 	{
 		philo[i].id = i + 1;
 		philo[i].args = &args;
+		philo[i].status = 0;
 		philo[i].last_eat = get_time_ms(philo->args->start_time);
 		pthread_mutex_init(&args.fork[i], NULL);
 		pthread_mutex_init(&philo[i].eat, NULL);
 		i++;
 	}
 	pthread_mutex_init(&args.print, NULL);
-	// pthread_mutex_init(&args.forks, NULL);
 	philosophers(philo, args);
 	return (0);
 }

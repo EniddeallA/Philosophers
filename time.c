@@ -6,11 +6,11 @@
 /*   By: akhalid <akhalid@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 00:05:13 by akhalid           #+#    #+#             */
-/*   Updated: 2021/11/19 14:39:48 by akhalid          ###   ########.fr       */
+/*   Updated: 2021/11/23 16:10:23 by akhalid          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philosophers.h"
+#include "./philosophers.h"
 
 long	get_time_ms(long time)
 {
