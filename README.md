@@ -6,4 +6,4 @@ Feel free to use my code in good manners ;) (No copy pasta).
 
 Final Mark :
 
-![alt text](https://github.com/EniddeallA/Philosophers/blob/master/success.PNG)
+![alt text](https://github.com/EniddeallA/Philosophers/blob/master/success.png)
